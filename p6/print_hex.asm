@@ -1,4 +1,4 @@
-%include "../LIB/pc_iox.inc" ;se incluye la libreria iox.inc para hacer uso de hexadecimal
+%include "../LIB/pc_iox.inc"
 
 section	.text
 
@@ -6,26 +6,26 @@ section	.text
 
 _start:                     ;tell linker entry point
 
-	mov al,30
+	mov al,100
 	call pHex_b	; muestra en pantalla 64
 
 	mov al,10	; cambio de linea
 	call putchar
 
-	mov ax,0x15ab 	; presenta en pantalla 12AB
+	mov ax,0x12ab 	; presenta en pantalla 12AB
 	call pHex_w
 
 	mov al,10 	; cambio de linea
 	call putchar
 
-	mov eax,345cdfh ; presenta en pantalla 1234ABCD
+	mov eax,1234ABCDh ; presenta en pantalla 1234ABCD
 	call pHex_dw
 
 	mov al,0x0a	  ; cambio de lines 10 decimal o bien 0A hex
 	call putchar
 
-	mov eax,0x151678 ; presenta en pantalla 76543210
-        call pHex_dw ; indica el tamanio de bits (32)
+	mov eax,0x76543210 ; presenta en pantalla 76543210
+        call pHex_dw
 
 	mov al,10       ; cambio de linea
 	call putchar
