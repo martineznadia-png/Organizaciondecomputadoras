@@ -6,19 +6,22 @@ section .text
 
 _start:
 
-call getche ;ingresar el numero
+    call getche ;ingresar el numero
 
-cmp al, 
-je @@them 
-mov edx, msg 
-call puts
+    sub al, 0x30 ;Se le resta un 0 en hexadecimal
+    cmp al, 5
+    jae .mayor
 
-@@them mov eax, msgg
-call puts
+    mov edx, msg 
+    call puts
+    jmp .fin
 
-mov eax, 1  ;fin del programa
-int 0x80 
+    .mayor: mov edx, msgg
+    call puts
+
+    .fin: mov eax, 1  ;fin del programa
+    int 0x80 
 
 section data
-msg db 'El numero es menor que 5', 0xa,0
-msgg db 'El numero no es meno que 5', 0xa,0
+msg db ' Es menor que 5', 0xa,0
+msgg db ' Es mayor que 5', 0xa,0
