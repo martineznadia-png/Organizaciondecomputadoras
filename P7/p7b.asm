@@ -10,25 +10,22 @@ section        .text
 
 _start:                     ;tell linker entry point
 
-    mov eax, 0x22446688
-    call pBin_dw
-    ror eax, 1 
+    mov cx, 0x3F48  
+    mov ax, cx
+    call pBin_dw      ; 0011 1111 0100 1000
+    push cx
 
-    mov al,10        ; cambio de linea
-        call putchar
+    mov al, 10
+    call putchar
 
-    mov cx, 0x3F48   
-    call pBin_w      ; 0011 1111 0100 1000
-    shl cx,       ; 1111 1010 0100 0000
+    pop cx
+    shl cx, 3      ; 1111 1010 0100 0000
 
-    mov al,10        ; cambio de linea
-        call putchar
-
-    mov esi, 0x20D685F3
+    mov ax, cx
     call pBin_dw 
 
     mov al,10        ; cambio de linea
-        call putchar
+    call putchar
 
 mov eax, 1        ;system call number (sys_exit) -- fin del programa
 int 0x80        ;call kernel
