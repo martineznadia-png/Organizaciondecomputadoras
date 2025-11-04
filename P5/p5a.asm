@@ -7,16 +7,16 @@ section	.text
 _start:    
 
 	 mov edx, msg		; edx = dirección de la cadena msg
-	call puts		
+	 call puts		
 
-	mov al,'Z'
-	mov [msg],al
+	 mov al,'Z'
+	 mov [msg],al
 
-    mov edx, msg		; edx = dirección de la cadena msg
-	call puts			; imprime cadena msg terminada en valor nulo (0)
+     mov edx, msg		; edx = dirección de la cadena msg
+	 call puts			; imprime cadena msg terminada en valor nulo (0)
     
-    mov eax, 1
-    int 0x80            ;fin del programa 
+     mov eax, 1
+     int 0x80            ;fin del programa 
 
 section	.data
 msg	db  'abcdefghijklmnopqrstuvwxyz0123456789',0xa,0 
