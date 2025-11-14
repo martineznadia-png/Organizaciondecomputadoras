@@ -1,7 +1,9 @@
 %include "../LIB/pc_iox.inc"
 
+section .bss
+vec resb 10 
+
 section .data
-msg db 'tamaño del vector', 0xa, 0 
 msg1 db 'capturar valor del areglo', 0xa,0 
 
 section .text 
@@ -10,23 +12,70 @@ section .text
 
 _start:
 
-    mov edx, msg 
-    call puts 
+    mov esi, vec
+    mov ecx, 10
+    call .capturarVector
 
-    call getche ;captura el tamaño del vector 
-    mov ah, al 
-    sub ah, 0x30 
-    mov ecx, ecx
+    mov al, 10
+    call putchar
 
-    leeVertor: cmp ecx, 10 
-               je leeVertor
-               jmp .finLeer
+    mov ebx, vec
+    mov ecx, 10
+    call .desplegarVector
 
-               mov edx, msg1 ;capturar elemento del arreglo 
-               call puts 
+    mov eax, 1  ;fin del programa
+    int 0x80 
 
-    .finLeer: mov eax,1
-               int 0x80 
+
+   .capturarVector: 
+
+        mov edx, msg1
+        call puts
+
+        push ecx
+        push esi
+        push eax
+    .otravez: 
+        call getch
+        cmp al, '0'
+        jb .otravez
+        cmp al, '9'
+        ja .otravez
+        call putchar
+        sub al, 30h
+
+        mov [esi], al
+        inc esi
+
+        loop .otravez
+        pop eax
+        pop esi
+        pop ecx
+        ret
+
+.desplegarVector:
+        push ecx 
+        push ebx   
+        push esi
+
+        cmp ecx, 10
+        ja fin
+        cmp ecx, 0
+        je fin
+
+next:
+        mov al, [ebx]      ; lee del vector
+        call pHex_b      ; imprime en hexadecimal
+        inc ebx            ; corregido: avanzamos EBX
+        loop next
+
+fin:
+        pop esi
+        pop ebx
+        pop ecx
+        ret
+ 
     
+                
 
 
