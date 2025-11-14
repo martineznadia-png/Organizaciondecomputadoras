@@ -4,13 +4,12 @@ section .text
 
     global sumar
 
-_start:
+sumar:
 
-/sumar n1 + n2
+;sumar n1 + n2
 
 push ebx 
 mov ebx, esp 
-
 mov eax, [ebx+8]
 mov eax, [ebx+12]
 pop ebx 
